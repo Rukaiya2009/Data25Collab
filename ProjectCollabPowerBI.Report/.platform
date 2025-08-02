@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "ProjectCollabPowerBI"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "c0212d40-30c1-42b8-a56c-ffb092371522"
+  }
+}
