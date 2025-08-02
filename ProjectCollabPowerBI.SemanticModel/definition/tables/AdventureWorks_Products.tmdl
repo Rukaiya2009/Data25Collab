@@ -1,0 +1,112 @@
+table AdventureWorks_Products
+	lineageTag: 564c78b6-ef02-4718-9191-7dc4c4e824df
+
+	column ProductKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 46fbcef0-b2fd-4091-ba89-06a7cefef6e0
+		summarizeBy: count
+		sourceColumn: ProductKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductSubcategoryKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 2e55feb2-a64a-4638-870b-5fb36d39ad32
+		summarizeBy: count
+		sourceColumn: ProductSubcategoryKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductSKU
+		dataType: string
+		lineageTag: b3f4eb90-2243-4c5f-8835-c32391e6ca02
+		summarizeBy: none
+		sourceColumn: ProductSKU
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductName
+		dataType: string
+		lineageTag: b4f40383-f2b9-42e4-a9b5-f051eb1987ab
+		summarizeBy: none
+		sourceColumn: ProductName
+
+		annotation SummarizationSetBy = Automatic
+
+	column ModelName
+		dataType: string
+		lineageTag: f83d12a3-656b-43a8-9c4f-f7dda0dcbfa1
+		summarizeBy: none
+		sourceColumn: ModelName
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductDescription
+		dataType: string
+		lineageTag: 9a96626c-70c5-45f3-9498-64b390c7bb39
+		summarizeBy: none
+		sourceColumn: ProductDescription
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductColor
+		dataType: string
+		lineageTag: 652d5cf7-a1f1-44cb-9f0b-b86b89725a74
+		summarizeBy: none
+		sourceColumn: ProductColor
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductSize
+		dataType: string
+		lineageTag: 0ecdd6af-d58b-4fac-b664-bf4061498c71
+		summarizeBy: none
+		sourceColumn: ProductSize
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductStyle
+		dataType: string
+		lineageTag: 2feded3c-c60e-4297-a608-2d04f2c238cb
+		summarizeBy: none
+		sourceColumn: ProductStyle
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductCost
+		dataType: double
+		lineageTag: 394cab3f-714a-4c4f-8006-32e212d8ca11
+		summarizeBy: sum
+		sourceColumn: ProductCost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ProductPrice
+		dataType: double
+		lineageTag: 7d6e4e67-386f-42b7-b7eb-19f4d7fb821d
+		summarizeBy: sum
+		sourceColumn: ProductPrice
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition AdventureWorks_Products = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\Ricon Rahman\OneDrive\Desktop\AdventureWorks_Products_xls (1).xls"), null, true),
+				    AdventureWorks_Products1 = Source{[Name="AdventureWorks_Products"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(AdventureWorks_Products1, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"ProductKey", Int64.Type}, {"ProductSubcategoryKey", Int64.Type}, {"ProductSKU", type text}, {"ProductName", type text}, {"ModelName", type text}, {"ProductDescription", type text}, {"ProductColor", type text}, {"ProductSize", type text}, {"ProductStyle", type text}, {"ProductCost", type number}, {"ProductPrice", type number}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
